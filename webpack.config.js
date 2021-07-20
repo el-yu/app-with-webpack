@@ -16,13 +16,32 @@ module.exports = {
         path: path.resolve(__dirname, 'build')
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js'],
+        extensions: ['.ts', '.tsx', '.js']
     },
     module: {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                loader: require.resolve('ts-loader')
+                loader: require.resolve('ts-loader'),
+                include: path.resolve(__dirname, 'src')
+            },
+            {
+                test: /\.scss$/,
+                include: path.resolve(__dirname, 'src'),
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+                ]
             }
         ]
     },
